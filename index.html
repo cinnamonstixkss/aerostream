@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AeroStream Hub</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+    font-family: 'Quicksand', sans-serif;
+    background: linear-gradient(135deg, #ff8c00, #ffa94d);
+    color: white;
+    margin: 0;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+/* HEADER IMAGE */
+.header-img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+}
+
+/* Title */
+header {
+    padding: 10px;
+    font-size: 32px;
+    font-weight: 600;
+    text-shadow: 0 0 12px rgba(255,255,255,0.7);
+}
+
+/* Search */
+.search-box {
+    margin: 20px;
+}
+
+input {
+    padding: 12px;
+    width: 60%;
+    border-radius: 25px;
+    border: none;
+    font-size: 16px;
+}
+
+/* Section */
+.section {
+    padding: 20px;
+}
+
+/* Category (Movies / Shows) */
+.category {
+    text-decoration: underline;
+    font-size: 26px;
+    font-weight: bold; /* BOLD */
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+
+/* Items */
+.item {
+    display: flex;
+    justify-content: center;
+}
+
+.item a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    margin: 12px 0;
+    font-size: 20px;
+    transition: 0.2s;
+}
+
+.item img {
+    width: 26px;
+    margin-right: 10px;
+}
+
+.item a:hover {
+    opacity: 0.85;
+    transform: scale(1.05);
+}
+
+/* BUBBLES */
+.bubble {
+    position: fixed;
+    bottom: -100px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(0); }
+    to { transform: translateY(-120vh); }
+}
+</style>
+</head>
+
+<body>
+
+<img class="header-img" src="https://lh7-rt.googleusercontent.com/sitesz/AClOY7punKoFKIgzNGml2-_UYyVPItNbmj_5SygXQ8vNgUQ-iCbwayxGG4yEvGOkc9pPOp5bJOd1cAN5PPXNVCZzL1bD_UaNRxDuGcyToMkgIPqMow5QnPEioba4VF-q01I3FA72sDsTkebNFtuxODklNtykTpHKrOE-65yQUC38FkV7LyZD-DQi?key=QilxPhUmEDsWhL1gvXMi8Q">
+
+<header>AeroStream Hub</header>
+
+<div class="search-box">
+    <input type="text" id="search" placeholder="Search..." onkeyup="searchContent()">
+</div>
+
+<div class="section">
+    <h2><b>Movies & Shows</b> (<span id="count">0</span>)</h2>
+</div>
+
+<div class="section">
+    <h2 class="category">Movies</h2>
+
+    <div class="item"> 
+        <a href="https://drive.google.com/drive/folders/1NWM1jT6rblqS32Dc-43yeJeLaEDm2-Ob?usp=drive_link" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/512/5968/5968523.png">
+            K-Pop Demon Hunters (2025)
+        </a>
+    </div>
+
+    <div class="item"> 
+        <a href="https://archive.org/details/animalcrossing-movie-eng-dub/animalcrossing-p1-eng.mp4" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Internet_Archive_logotype.png">
+            Animal Crossing: The Movie (English Dub) (2006)
+        </a>
+    </div>
+
+    <div class="item"> 
+        <a href="https://www.google.com" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/512/5968/5968523.png">
+            Placeholder Movie
+        </a>
+    </div>
+
+</div>
+
+<div class="section">
+    <h2 class="category">Shows</h2>
+
+    <div class="item"> 
+        <a href="https://drive.google.com/drive/folders/1gJQqKSyFsnSemAypk2vDAz7SGxunhgvf" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/512/5968/5968523.png">
+            Spy x Family Season 1 (2022)
+        </a>
+    </div>
+
+    <div class="item"> 
+        <a href="https://www.google.com" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png">
+            Placeholder Show
+        </a>
+    </div>
+
+    <div class="item"> 
+        <a href="https://www.google.com" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png">
+            Placeholder Show 2
+        </a>
+    </div>
+
+</div>
+
+<script>
+function updateCount() {
+    let items = document.querySelectorAll(".item");
+    document.getElementById("count").textContent = items.length;
+}
+
+function searchContent() {
+    let input = document.getElementById("search").value.toLowerCase();
+    let items = document.querySelectorAll(".item");
+
+    items.forEach(item => {
+        let text = item.textContent.toLowerCase();
+        item.style.display = text.includes(input) ? "flex" : "none";
+    });
+}
+
+function createBubble() {
+    let bubble = document.createElement("div");
+    bubble.classList.add("bubble");
+
+    let size = Math.random() * 40 + 10;
+    bubble.style.width = size + "px";
+    bubble.style.height = size + "px";
+    bubble.style.left = Math.random() * 100 + "vw";
+    bubble.style.animationDuration = (Math.random() * 5 + 5) + "s";
+
+    document.body.appendChild(bubble);
+
+    setTimeout(() => bubble.remove(), 10000);
+}
+
+setInterval(createBubble, 400);
+updateCount();
+</script>
+
+</body>
+</html>
