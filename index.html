@@ -16,6 +16,21 @@ body {
     overflow-x: hidden;
 }
 
+/* MUTE BUTTON */
+#muteBtn {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: rgba(255,255,255,0.2);
+    border: none;
+    border-radius: 12px;
+    padding: 10px 14px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+}
+
 /* HEADER IMAGE */
 .header-img {
     width: 100%;
@@ -87,11 +102,13 @@ input {
     border-radius: 16px;
     background: #999;
     box-shadow: 0 0 10px rgba(255,255,255,0.25);
-    transition: 0.2s;
+    transition: all 0.25s ease;
 }
 
+/* HOVER */
 .card img:hover {
     transform: scale(1.05);
+    box-shadow: 0 0 0 3px white, 0 0 15px rgba(255,255,255,0.8);
 }
 
 /* TITLE */
@@ -119,16 +136,23 @@ input {
 
 <body>
 
+<!-- AUDIO -->
+<audio id="bgMusic" loop autoplay muted></audio>
+<audio id="hoverSound"></audio>
+
+<!-- MUTE BUTTON -->
+<button id="muteBtn">🔇</button>
+
 <img class="header-img" src="https://lh7-rt.googleusercontent.com/sitesz/AClOY7punKoFKIgzNGml2-_UYyVPItNbmj_5SygXQ8vNgUQ-iCbwayxGG4yEvGOkc9pPOp5bJOd1cAN5PPXNVCZzL1bD_UaNRxDuGcyToMkgIPqMow5QnPEioba4VF-q01I3FA72sDsTkebNFtuxODklNtykTpHKrOE-65yQUC38FkV7LyZD-DQi?key=QilxPhUmEDsWhL1gvXMi8Q">
 
 <div class="top-center">
-<header>AeroStream Hub</header>
+    <header>AeroStream Hub</header>
 
-<div class="search-box">
-<input type="text" id="search" placeholder="Search..." onkeyup="searchContent()">
-</div>
+    <div class="search-box">
+        <input type="text" id="search" placeholder="Search..." onkeyup="searchContent()">
+    </div>
 
-<h2><b>Movies & Shows</b> (<span id="count">0</span>)</h2>
+    <h2><b>Movies & Shows</b> (<span id="count">0</span>)</h2>
 </div>
 
 <!-- MOVIES -->
@@ -137,29 +161,36 @@ input {
 <div class="grid">
 
 <div class="card">
-<a href="https://drive.google.com/file/d/1WXfbFWEfZ0aQXr185La8tw2pdXacpUrW/view?usp=drive_link" target="_blank">
-<img src="https://i.postimg.cc/G2gMNttW/13937-(1).png" alt="Movie">
+<a href="https://drive.google.com/file/d/10T7JcIibyJVCjmr-sf1Yt-_Y22l0gLsN/view?usp=drive_link" target="_blank">
+<img src="https://i.postimg.cc/G2gMNttW/13937-(1).png">
 <p>K-Pop Demon Hunters (2025)</p>
 </a>
 </div>
 
 <div class="card">
 <a href="https://archive.org/details/animalcrossing-movie-eng-dub/animalcrossing-p1-eng.mp4" target="_blank">
-<img src="https://i.postimg.cc/v8JRH28K/13937-(2).png" alt="Movie">
-<p>Animal Crossing: The Movie (English Dub) (2006)</p>
+<img src="https://i.postimg.cc/v8JRH28K/13937-(2).png">
+<p>Animal Crossing: The Movie (2006)</p>
 </a>
 </div>
 
 <div class="card">
 <a href="https://rrr.cloud31peak.site/pwjj/c5/h6a90f70b8d237f94866b6cfc296349bddedc7dc1328a917ea72e2c7561a475aca046899eb0ee7bdfc502a43593daae1f62433418318c59e14195c39916fc5cfe4c1a/list,Ktm0Vt9-cJyXbGG_O3gV_5vGK-kpiQ.m3u8" target="_blank">
-<img src="https://i.postimg.cc/SK27sdxM/13937-(3).png" alt="Movie">
+<img src="https://i.postimg.cc/SK27sdxM/13937-(3).png">
 <p>Zootopia 2 (2025)</p>
 </a>
 </div>
 
 <div class="card">
+<a href="https://drive.google.com/file/d/1Ob6rRo-hWZsQuG2ThBm9yAlSinEKEROV/view?usp=sharing" target="_blank">
+<img src="https://i.postimg.cc/V6wtF5Tv/df-(1).png">
+<p>Travel with Toro THE MOVIE (2009)</p>
+</a>
+</div>
+
+<div class="card">
 <a href="https://www.google.com" target="_blank">
-<img src="https://placehold.co/300x450?text=Poster" alt="Placeholder">
+<img src="https://placehold.co/300x450?text=Poster">
 <p>Placeholder Movie</p>
 </a>
 </div>
@@ -174,21 +205,21 @@ input {
 
 <div class="card">
 <a href="https://drive.google.com/drive/folders/1gJQqKSyFsnSemAypk2vDAz7SGxunhgvf" target="_blank">
-<img src="https://i.postimg.cc/bwHdR2Fp/13937-(4).png" alt="Show">
+<img src="https://i.postimg.cc/bwHdR2Fp/13937-(4).png">
 <p>Spy x Family Season 1 (2022)</p>
 </a>
 </div>
 
 <div class="card">
-<a href="https://www.google.com" target="_blank">
-<img src="https://placehold.co/300x450?text=Poster" alt="Show">
-<p>Placeholder Show</p>
+<a href="https://drive.google.com/drive/u/0/folders/1AsSOW6Vm3yUpGqZ2lHJOafXzhcDal5Uj" target="_blank">
+<img src="https://i.postimg.cc/c4XYZszD/df.png">
+<p>Murder Drones (2021)</p>
 </a>
 </div>
 
 <div class="card">
 <a href="https://www.google.com" target="_blank">
-<img src="https://placehold.co/300x450?text=Poster" alt="Show">
+<img src="https://placehold.co/300x450?text=Poster">
 <p>Placeholder Show 2</p>
 </a>
 </div>
@@ -197,6 +228,51 @@ input {
 </div>
 
 <script>
+// SOUND LINKS
+const musicURL = "https://granny.anondrop.net/uploads/9e4331443a42cc92/17._Parental_Controls___Wii_U_System_Soundtrack.mp3";
+const hoverURL = "https://granny.anondrop.net/uploads/d7e7e49099750e0b/copy_54A15E99-956A-44F3-B177-FCD2DA4BFD4A.mp3";
+
+const bgMusic = document.getElementById("bgMusic");
+const hoverSound = document.getElementById("hoverSound");
+
+bgMusic.src = musicURL;
+hoverSound.src = hoverURL;
+
+bgMusic.volume = 0.2;
+hoverSound.volume = 0.6;
+
+// START MUTED
+let muted = true;
+bgMusic.muted = true;
+hoverSound.muted = true;
+
+// autoplay (allowed because muted)
+bgMusic.play().catch(()=>{});
+
+// mute button
+const btn = document.getElementById("muteBtn");
+btn.onclick = () => {
+    muted = !muted;
+    bgMusic.muted = muted;
+    hoverSound.muted = muted;
+    btn.textContent = muted ? "🔇" : "🔊";
+
+    if (!muted) {
+        bgMusic.play().catch(()=>{});
+    }
+};
+
+// hover sound
+document.querySelectorAll(".card img").forEach(img => {
+    img.addEventListener("mouseenter", () => {
+        if (!muted) {
+            hoverSound.currentTime = 0;
+            hoverSound.play().catch(()=>{});
+        }
+    });
+});
+
+// search + count
 function updateCount() {
     let visibleItems = document.querySelectorAll(".card:not([style*='display: none'])");
     document.getElementById("count").textContent = visibleItems.length;
@@ -214,6 +290,7 @@ function searchContent() {
     updateCount();
 }
 
+// bubbles
 function createBubble() {
     let bubble = document.createElement("div");
     bubble.classList.add("bubble");
@@ -225,12 +302,10 @@ function createBubble() {
     bubble.style.animationDuration = (Math.random() * 5 + 5) + "s";
 
     document.body.appendChild(bubble);
-
     setTimeout(() => bubble.remove(), 8000);
 }
 
 setInterval(createBubble, 600);
-
 updateCount();
 </script>
 
