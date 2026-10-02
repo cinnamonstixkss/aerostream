@@ -4,9 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AeroStream Hub</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
-
 <style>
 body {
     font-family: 'Quicksand', sans-serif;
@@ -15,7 +13,6 @@ body {
     margin: 0;
     overflow-x: hidden;
 }
-
 /* MUTE BUTTON */
 #muteBtn {
     position: fixed;
@@ -29,32 +26,94 @@ body {
     font-weight: 600;
     cursor: pointer;
     backdrop-filter: blur(6px);
+    z-index: 10000;
 }
-
+/* POPUP OVERLAY */
+#popupOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(7px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+/* POPUP BOX */
+#popup {
+    width: min(380px, 82%);
+    padding: 30px;
+    text-align: center;
+    background: linear-gradient(135deg, #ffb347, #ff8c00);
+    border: 2px solid rgba(255,255,255,0.6);
+    border-radius: 26px;
+    box-shadow:
+        0 15px 45px rgba(0,0,0,0.35),
+        0 0 25px rgba(255,255,255,0.25);
+    animation: popupIn 0.4s ease;
+}
+#popup h2 {
+    margin: 0 0 10px;
+    font-size: 29px;
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+#popup p {
+    margin: 0 0 20px;
+    font-size: 16px;
+    line-height: 1.6;
+}
+#popupOk {
+    padding: 11px 38px;
+    border: none;
+    border-radius: 22px;
+    background: white;
+    color: #ff8c00;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+#popupOk:hover {
+    transform: scale(1.08);
+    box-shadow: 0 7px 18px rgba(0,0,0,0.2);
+}
+#popupOk:active {
+    transform: scale(0.95);
+}
+@keyframes popupIn {
+    from {
+        opacity: 0;
+        transform: scale(0.75);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
 /* HEADER IMAGE */
 .header-img {
     width: 100%;
     max-height: 200px;
     object-fit: cover;
 }
-
 /* CENTER TOP */
 .top-center {
     text-align: center;
     padding: 10px 0;
 }
-
 header {
     font-size: 32px;
     font-weight: 600;
     text-shadow: 0 0 12px rgba(255,255,255,0.7);
 }
-
 /* SEARCH */
 .search-box {
     margin: 15px 0;
 }
-
 input {
     padding: 12px;
     width: 300px;
@@ -63,12 +122,10 @@ input {
     font-size: 16px;
     outline: none;
 }
-
 /* SECTION */
 .section {
     padding: 10px 20px;
 }
-
 .category {
     text-decoration: underline;
     font-size: 26px;
@@ -76,24 +133,20 @@ input {
     margin-bottom: 15px;
     text-shadow: 0 0 10px rgba(255,255,255,0.5);
 }
-
 /* GRID */
 .grid {
     display: flex;
     flex-wrap: wrap;
     gap: 14px;
 }
-
 /* CARD */
 .card {
     width: 150px;
 }
-
 .card a {
     text-decoration: none;
     color: white;
 }
-
 /* POSTERS */
 .card img {
     width: 150px;
@@ -104,20 +157,17 @@ input {
     box-shadow: 0 0 10px rgba(255,255,255,0.25);
     transition: all 0.25s ease;
 }
-
 /* HOVER */
 .card img:hover {
     transform: scale(1.05);
     box-shadow: 0 0 0 3px white, 0 0 15px rgba(255,255,255,0.8);
 }
-
 /* TITLE */
 .card p {
     margin-top: 6px;
     font-size: 14px;
     font-weight: 600;
 }
-
 /* BUBBLES */
 .bubble {
     position: fixed;
@@ -125,172 +175,208 @@ input {
     border-radius: 50%;
     background: rgba(255,255,255,0.2);
     animation: floatUp linear forwards;
+    pointer-events: none;
 }
-
 @keyframes floatUp {
-    from { transform: translateY(0); }
-    to { transform: translateY(-120vh); }
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-120vh);
+    }
 }
 </style>
 </head>
-
 <body>
-
+<!-- POPUP -->
+<div id="popupOverlay">
+    <div id="popup">
+        <h2>Notice</h2>
+        <p>
+            AeroStream has not been updated<br>
+            in a while and may be buggy.<br>
+            Shows sometimes won't work,<br>
+            Covers of shows may not show either<br>
+            But the website will still be online.<br>
+            Enjoy
+        </p>
+        <button id="popupOk">OK</button>
+    </div>
+</div>
 <!-- AUDIO -->
 <audio id="bgMusic" loop autoplay muted></audio>
 <audio id="hoverSound"></audio>
-
 <!-- MUTE BUTTON -->
 <button id="muteBtn">🔇</button>
-
 <img class="header-img" src="https://lh7-rt.googleusercontent.com/sitesz/AClOY7punKoFKIgzNGml2-_UYyVPItNbmj_5SygXQ8vNgUQ-iCbwayxGG4yEvGOkc9pPOp5bJOd1cAN5PPXNVCZzL1bD_UaNRxDuGcyToMkgIPqMow5QnPEioba4VF-q01I3FA72sDsTkebNFtuxODklNtykTpHKrOE-65yQUC38FkV7LyZD-DQi?key=QilxPhUmEDsWhL1gvXMi8Q">
-
 <div class="top-center">
     <header>AeroStream Hub</header>
-
     <div class="search-box">
         <input type="text" id="search" placeholder="Search..." onkeyup="searchContent()">
     </div>
-
     <h2><b>Movies & Shows</b> (<span id="count">0</span>)</h2>
 </div>
-
 <!-- MOVIES -->
 <div class="section">
 <h2 class="category">Movies</h2>
 <div class="grid">
-
 <div class="card">
 <a href="https://drive.google.com/file/d/10T7JcIibyJVCjmr-sf1Yt-_Y22l0gLsN/view?usp=drive_link" target="_blank">
 <img src="https://i.postimg.cc/G2gMNttW/13937-(1).png">
 <p>K-Pop Demon Hunters (2025)</p>
 </a>
 </div>
-
 <div class="card">
 <a href="https://archive.org/details/animalcrossing-movie-eng-dub/animalcrossing-p1-eng.mp4" target="_blank">
 <img src="https://i.postimg.cc/v8JRH28K/13937-(2).png">
 <p>Animal Crossing: The Movie (English Dub) (2006)</p>
 </a>
 </div>
-
 <div class="card">
 <a href="https://rrr.cloud31peak.site/pwjj/c5/h6a90f70b8d237f94866b6cfc296349bddedc7dc1328a917ea72e2c7561a475aca046899eb0ee7bdfc502a43593daae1f62433418318c59e14195c39916fc5cfe4c1a/list,Ktm0Vt9-cJyXbGG_O3gV_5vGK-kpiQ.m3u8" target="_blank">
 <img src="https://i.postimg.cc/SK27sdxM/13937-(3).png">
 <p>Zootopia 2 (2025)</p>
 </a>
 </div>
-
 <div class="card">
 <a href="https://drive.google.com/file/d/1Ob6rRo-hWZsQuG2ThBm9yAlSinEKEROV/view?usp=sharing" target="_blank">
 <img src="https://i.postimg.cc/V6wtF5Tv/df-(1).png">
 <p>Travel with Toro THE MOVIE (2009)</p>
 </a>
 </div>
-
 <div class="card">
 <a href="https://drive.google.com/file/d/1PNXs7-kocPc_0kTtrQlfPXZ9_YOShwre/view" target="_blank">
 <img src="https://i.postimg.cc/GhN4pfz1/df-4.png">
 <p>The Outsiders (1983)</p>
 </a>
 </div>
-
 <div class="card">
 <a href="https://www.google.com" target="_blank">
 <img src="https://placehold.co/300x450?text=Poster">
 <p>Placeholder Movie</p>
 </a>
 </div>
-
 </div>
 </div>
-
 <!-- SHOWS -->
 <div class="section">
 <h2 class="category">Shows</h2>
 <div class="grid">
-
 <div class="card">
 <a href="https://drive.google.com/drive/folders/1gJQqKSyFsnSemAypk2vDAz7SGxunhgvf" target="_blank">
 <img src="https://i.postimg.cc/bwHdR2Fp/13937-(4).png">
 <p>Spy x Family Season 1 (2022)</p>
 </a>
 </div>
-
 <div class="card">
 <a href="https://drive.google.com/drive/u/0/folders/1AsSOW6Vm3yUpGqZ2lHJOafXzhcDal5Uj" target="_blank">
 <img src="https://i.postimg.cc/c4XYZszD/df.png">
 <p>Murder Drones (2021)</p>
 </a>
 </div>
-
 <div class="card">
 <a href="https://archive.org/details/GreenAcresCompleteSeries" target="_blank">
 <img src="https://i.postimg.cc/QtKgFsDX/IMG-4387.jpg">
 <p>Green Acres (1965)</p>
 </a>
 </div>
-
 <div class="card">
 <a href="https://drive.google.com/drive/folders/1-bcyYpkwrpnRvF0RQ3LkuefokHLkR4dF" target="_blank">
 <img src="https://i.postimg.cc/1tT8NNHY/df-2.png">
 <p>Win Or Lose (2025)</p>
 </a>
 </div>
-
 <div class="card">
 <a href="https://www.google.com/url?q=https://drive.google.com/drive/u/0/folders/1w3o_qE2iwsj6XbA42mpGDGLX0Atgnc9k&sa=D&source=editors&ust=1776011482669611&usg=AOvVaw35qsz0b_bg_s5Bfi3PYxRy" target="_blank">
 <img src="https://i.postimg.cc/NjzkBb2f/df-3.png">
 <p>South Park (Seasons 1-3) (1997)</p>
 </a>
 </div>
-
 <div class="card">
 <a href="https://www.google.com" target="_blank">
 <img src="https://placehold.co/300x450?text=Poster">
 <p>Placeholder Show</p>
 </a>
 </div>
-
 </div>
 </div>
-
 <script>
 // SOUND LINKS
 const musicURL = "https://granny.anondrop.net/uploads/9e4331443a42cc92/17._Parental_Controls___Wii_U_System_Soundtrack.mp3";
 const hoverURL = "https://granny.anondrop.net/uploads/d7e7e49099750e0b/copy_54A15E99-956A-44F3-B177-FCD2DA4BFD4A.mp3";
-
 const bgMusic = document.getElementById("bgMusic");
 const hoverSound = document.getElementById("hoverSound");
-
 bgMusic.src = musicURL;
 hoverSound.src = hoverURL;
-
 bgMusic.volume = 0.2;
 hoverSound.volume = 0.6;
-
 // START MUTED
 let muted = true;
 bgMusic.muted = true;
 hoverSound.muted = true;
-
 // autoplay (allowed because muted)
 bgMusic.play().catch(()=>{});
-
-// mute button
+// MUTE BUTTON
 const btn = document.getElementById("muteBtn");
 btn.onclick = () => {
     muted = !muted;
     bgMusic.muted = muted;
     hoverSound.muted = muted;
     btn.textContent = muted ? "🔇" : "🔊";
-
     if (!muted) {
         bgMusic.play().catch(()=>{});
     }
 };
-
-// hover sound
+// POPUP
+const popupOverlay = document.getElementById("popupOverlay");
+const popupOk = document.getElementById("popupOk");
+// Cute popup click sound using Web Audio.
+// This does not add or change any external links.
+function playPopupSound() {
+    if (muted) return;
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    const audioContext = new AudioContext();
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+    oscillator.type = "sine";
+    oscillator.frequency.setValueAtTime(
+        520,
+        audioContext.currentTime
+    );
+    oscillator.frequency.exponentialRampToValueAtTime(
+        780,
+        audioContext.currentTime + 0.08
+    );
+    gain.gain.setValueAtTime(
+        0.0001,
+        audioContext.currentTime
+    );
+    gain.gain.exponentialRampToValueAtTime(
+        0.25,
+        audioContext.currentTime + 0.01
+    );
+    gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        audioContext.currentTime + 0.12
+    );
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+    oscillator.start();
+    oscillator.stop(
+        audioContext.currentTime + 0.12
+    );
+}
+// Close popup
+popupOk.onclick = () => {
+    playPopupSound();
+    popupOverlay.style.opacity = "0";
+    popupOverlay.style.pointerEvents = "none";
+    setTimeout(() => {
+        popupOverlay.style.display = "none";
+    }, 300);
+};
+// HOVER SOUND
 document.querySelectorAll(".card img").forEach(img => {
     img.addEventListener("mouseenter", () => {
         if (!muted) {
@@ -299,43 +385,40 @@ document.querySelectorAll(".card img").forEach(img => {
         }
     });
 });
-
-// search + count
+// SEARCH + COUNT
 function updateCount() {
-    let visibleItems = document.querySelectorAll(".card:not([style*='display: none'])");
-    document.getElementById("count").textContent = visibleItems.length;
+    let visibleItems = document.querySelectorAll(
+        ".card:not([style*='display: none'])"
+    );
+    document.getElementById("count").textContent =
+        visibleItems.length;
 }
-
 function searchContent() {
-    let input = document.getElementById("search").value.toLowerCase();
+    let input =
+        document.getElementById("search").value.toLowerCase();
     let items = document.querySelectorAll(".card");
-
     items.forEach(item => {
         let text = item.textContent.toLowerCase();
-        item.style.display = text.includes(input) ? "" : "none";
+        item.style.display =
+            text.includes(input) ? "" : "none";
     });
-
     updateCount();
 }
-
-// bubbles
+// BUBBLES
 function createBubble() {
     let bubble = document.createElement("div");
     bubble.classList.add("bubble");
-
     let size = Math.random() * 40 + 10;
     bubble.style.width = size + "px";
     bubble.style.height = size + "px";
     bubble.style.left = Math.random() * 100 + "vw";
-    bubble.style.animationDuration = (Math.random() * 5 + 5) + "s";
-
+    bubble.style.animationDuration =
+        (Math.random() * 5 + 5) + "s";
     document.body.appendChild(bubble);
     setTimeout(() => bubble.remove(), 8000);
 }
-
 setInterval(createBubble, 600);
 updateCount();
 </script>
-
 </body>
 </html>
